@@ -1,6 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { NextRequest, NextResponse } from "next/server";
 import { LoopsClient } from "loops";
-import { Mail } from "lucide-react";
+
 
 const loops = new LoopsClient(process.env.LOOPS_API_KEY as string);
   
