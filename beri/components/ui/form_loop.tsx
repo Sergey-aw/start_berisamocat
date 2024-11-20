@@ -1,7 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-
 "use client"
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -138,7 +137,7 @@ export function ProfileForm() {
                               <Input placeholder="your-email@example.com" {...field} />
                           </FormControl>
                           <FormDescription>
-                              We'll never share your email with anyone else.
+                              Well never share your email with anyone else.
                           </FormDescription>
                           <FormMessage />
                       </FormItem>
