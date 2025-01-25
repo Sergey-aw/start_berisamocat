@@ -17,6 +17,7 @@ export default function Home() {
        ></Image></Link></div>
       <div className="text-4xl mx-auto text-center mt-10 font-formamedium">Оставь заявку</div>
     <div className="sm:w-full sm:p-4 md:w-1/2 md:min-w-1/3 lg:w-1/3 p-4 container mx-auto text-left">
+    <div className="text-gray-800 pb-10 mx-auto text-center">Отправим вам детали на почту в течение 10-ти минут.</div>
     <ProfileForm/>
     </div>
     </div>
