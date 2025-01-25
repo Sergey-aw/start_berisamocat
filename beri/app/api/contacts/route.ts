@@ -12,6 +12,7 @@ export async function POST(request: NextRequest) {
 
   const contactProperties: Record<string, string | number> = {
     firstName: res["username"], 
+    phone: res["phone"],
     city: res["city"] 
   };
   
