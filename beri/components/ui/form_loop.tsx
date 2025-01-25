@@ -32,6 +32,14 @@ const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
 );
 
+
+
+
+
+export function ProfileForm() {
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [defaultCity, setDefaultCity] = useState('');
 // Updating the form schema to include an email field
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -43,27 +51,21 @@ const formSchema = z.object({
   email: z.string().email({
     message: "Кажется, это не email.",
   }),
-  city: z.string().min(2, {
-    message: "Выберите регион из списка.",
-  }),
+  // city: z.string().min(2, {
+  //   message: "Выберите регион из списка.",
+  // }),
 })
-
-
-
-export function ProfileForm() {
-    const [isLoading, setIsLoading] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
-    const [defaultCity, setDefaultCity] = useState('');
-
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
         username: "",
         phone: "",
         email: "",
-        city: defaultCity,
+        city: "",
       },
     })
+
+
 
     const getRegionFromUrl = () => {
       const params = new URLSearchParams(window.location.search);
@@ -80,7 +82,7 @@ export function ProfileForm() {
     const cityFromUrl = getRegionFromUrl();
     if (cityFromUrl) {
       setDefaultCity(cityFromUrl);
-      form.setValue('city', cityFromUrl);
+      form.setValue('city', cityFromUrl, { shouldValidate: true });
       console.log('City from URL:', cityFromUrl);
     }
   }, [form]);
