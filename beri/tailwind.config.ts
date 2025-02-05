@@ -31,6 +31,7 @@ export default {
 			// => @media (min-width: 1536px) { ... }
 		  },
   		colors: {
+			beriblue: 'var(--color-beriblue)',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

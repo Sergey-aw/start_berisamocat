@@ -53,9 +53,9 @@ const formSchema = z.object({
   email: z.string().email({
     message: "Кажется, это не email.",
   }),
-  // city: z.string().min(2, {
-  //   message: "Выберите регион из списка.",
-  // }),
+  city: z.string().min(2, {
+    message: "Вы не указали регион",
+  }),
 })
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
@@ -67,28 +67,6 @@ const formSchema = z.object({
       },
     })
 
-
-
-    const getRegionFromUrl = () => {
-      const params = new URLSearchParams(window.location.search);
-      const region = params.get('region');
-      const regionMap = {
-          bg: 'Богородицк',
-          bd: 'Буддёновск',
-          sh: 'Салехард'
-      };
-      return region && regionMap[region] ? regionMap[region] : '';
-  }
-
-  useEffect(() => {
-    const cityFromUrl = getRegionFromUrl();
-    if (cityFromUrl) {
-      setDefaultCity(cityFromUrl);
-      form.setValue('city', cityFromUrl, { shouldValidate: true });
-      console.log('City from URL:', cityFromUrl);
-    }
-  }, [form]);
-      
 
       async function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values);
@@ -148,13 +126,13 @@ const formSchema = z.object({
     <>
      {!isSuccess && (
     <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 font-formamedium">
               <FormField
                   control={form.control}
                   name="username"
                   render={({ field }) => (
                       <FormItem>
-                          <FormLabel>Как вас зовут?</FormLabel>
+                          <FormLabel >Как вас зовут?</FormLabel>
                           <FormControl>
                               <Input placeholder="Иван Самокатный" {...field} />
                           </FormControl>
@@ -196,28 +174,15 @@ const formSchema = z.object({
 
 
 
-              <FormField
+<FormField
                   control={form.control}
                   name="city"
                   render={({ field }) => (
                       <FormItem>
-                          <FormLabel>Регион</FormLabel>
-                          <Select onValueChange={field.onChange} value={field.value || defaultCity}>
-                              <FormControl>
-                                  <SelectTrigger>
-                                      <SelectValue placeholder="Выберите регион из списка" />
-                                  </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                  <SelectItem value="Богородицк">Богородицк</SelectItem>
-                                  <SelectItem value="Буддёновск">Буддёновск</SelectItem>
-                                  <SelectItem value="Салехард">Салехард</SelectItem>
-                              </SelectContent>
-                          </Select>
-                          <FormDescription>
-                             
-                          </FormDescription>
-                          <FormMessage />
+                          <FormLabel >Регион для запуска</FormLabel>
+                          <FormControl>
+                              <Input placeholder="Укажите город, населённый пункт" {...field} />
+                          </FormControl>
                       </FormItem>
                   )} />
               <Button size="lg" className="w-full text-lg" type="submit" disabled={isLoading} variant={isSuccess ? 'green' : 'default'}>{isLoading ? 'Отправляем..' : isSuccess ? 'Успешно!' : 'Отправить'}</Button>
@@ -228,7 +193,7 @@ const formSchema = z.object({
               <MailCheckIcon className="h-4 w-4" />
               <AlertTitle className="text-lg">Заявка отправлена!</AlertTitle>
               <AlertDescription>
-                  Скоро вы получите письмо на указанный адрес с актуальными предложениями по готовым регионам и подробную презентацию про наш сервис.
+                  Скоро вы получите письмо на указанный адрес с подробной презентацией про наш сервис. Мы свяжемся с вами в течение рабочего дня. 
                   <p className="pt-4"><Link href="/" className="text-gray-800 underline hover:text-blue-700">Вернуться на главную <ArrowRight className="inline" size={14}/></Link></p>
               </AlertDescription>
           </Alert></>
