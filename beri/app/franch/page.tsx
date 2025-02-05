@@ -20,7 +20,7 @@ export default function Home() {
       perscooter = Math.round(550*(2 - (sliderValue - 100) / 200 * 0.5)); // Map A from 100-200 to 2-1.5
     }
     const scooter = 75000;
-    let profit = Math.round((sliderValue * perscooter * 28 * 7 * 0.5));
+    const profit = Math.round((sliderValue * perscooter * 28 * 7 * 0.5));
     const revenue = Math.round(profit / 0.5 / 7);
     const roi =  Math.round((sliderValue * scooter ) / (profit / 7) );
     const invest=scooter*sliderValue;

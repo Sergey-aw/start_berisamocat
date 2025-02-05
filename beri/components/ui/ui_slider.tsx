@@ -10,7 +10,7 @@ const UiSlider = () => {
         setSliderValue(value); // Assuming the slider returns an array of values
     };
 
-    const calculatedValue = sliderValue * 2;
+    
 
     return (
         <div>

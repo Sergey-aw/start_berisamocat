@@ -2,7 +2,7 @@
 // @ts-nocheck
 
 "use client"
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -19,16 +19,9 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select"
   
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Arrow } from "@radix-ui/react-select";
+
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
@@ -41,7 +34,7 @@ const phoneRegex = new RegExp(
 export function ProfileForm() {
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-    const [defaultCity, setDefaultCity] = useState('');
+    
 // Updating the form schema to include an email field
 const formSchema = z.object({
   username: z.string().min(2, {
