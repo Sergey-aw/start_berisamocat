@@ -74,18 +74,20 @@ export default function Home() {
 
 
   const getRegionFromUrl = () => {
+    if (typeof window !== "undefined") {
     const params = new URLSearchParams(window.location.search);
     const region = params.get('region');
     if (region && cityData[region]) {
       return region;
     }
     return "bg"; // or return a default value like 'bg'
-  };
+  }};
   useEffect(() => {
+    if (typeof window !== "undefined") {
     const cityFromUrl = getRegionFromUrl();
     if (cityFromUrl) {
       setDefaultCity(cityFromUrl);
-      setRevenue(cityData[cityFromUrl].revenue);
+      // setRevenue(cityData[cityFromUrl].revenue);
       setRoi(cityData[cityFromUrl].roi);
       setScooters(cityData[cityFromUrl].scooters);
       setCityimg(cityData[cityFromUrl].cityimg);
@@ -94,6 +96,7 @@ export default function Home() {
       setModel(cityData[cityFromUrl].model);
       console.log('City from URL:', defaultCity);
     }
+  }
   }, []);
 
   const formatter = new Intl.NumberFormat('ru-RU', {
