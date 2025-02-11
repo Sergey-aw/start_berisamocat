@@ -94,7 +94,7 @@ export default function Home() {
       setToinvest(cityData[cityFromUrl].toinvest);
       setProfit(cityData[cityFromUrl].profit);
       setModel(cityData[cityFromUrl].model);
-      console.log('City from URL:', defaultCity);
+      
     }
   }
   }, []);
