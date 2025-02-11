@@ -64,8 +64,7 @@ const cityData = {
 
 export default function Home() {
   const [defaultCity, setDefaultCity] = useState('');
-  const [sliderValue, setSliderValue] = useState(50);
-  const [revenue, setRevenue] = useState(0);
+  // const [revenue, setRevenue] = useState(0);
   const [cityimg, setCityimg] = useState('');
   const [toinvest, setToinvest] = useState(0);
   const [profit, setProfit] = useState(0);
