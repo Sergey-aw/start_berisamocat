@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
         destination: 'https://complex-interfaces-512888.framer.app/:path*',
         basePath: false,
       },
+      
     ];
 },
 };
