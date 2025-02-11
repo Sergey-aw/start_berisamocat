@@ -9,7 +9,6 @@ import { z } from "zod"
 import { ArrowRight, MailCheckIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button"
-import { useSearchParams } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -27,17 +26,13 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select"
-  
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
 );
 
-export function ProfileForm({ setDefaultCity }) {
-  const searchParams = useSearchParams();
-  const regionFromUrl = searchParams?.get("region") || "";
-  
+export function ProfileForm({ setDefaultCity, initialCity }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   
@@ -59,15 +54,15 @@ export function ProfileForm({ setDefaultCity }) {
       username: "",
       phone: "",
       email: "",
-      city: regionFromUrl,
+      city: initialCity,
     },
   });
 
   useEffect(() => {
-    if (regionFromUrl) {
-      setDefaultCity(regionFromUrl);
+    if (initialCity) {
+      setDefaultCity(initialCity);
     }
-  }, [regionFromUrl, setDefaultCity]);
+  }, [initialCity, setDefaultCity]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);

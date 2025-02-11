@@ -73,9 +73,10 @@ export default function Home() {
   const [scooters, setScooters] = useState();
   const [model, setModel] = useState("");
 
+  const regionFromUrl = searchParams?.get("region");
   useEffect(() => {
     // Use next/navigation's useSearchParams to get the URL parameter
-    const regionFromUrl = searchParams?.get("region");
+    
     const selectedRegion = regionFromUrl && cityData[regionFromUrl] ? regionFromUrl : "bg";
     setDefaultCity(selectedRegion);
     setRoi(cityData[selectedRegion].roi);
@@ -114,7 +115,7 @@ export default function Home() {
           <div className="text-gray-800 pb-8 mx-auto text-center">
             Отправим детали по выбранному региону на почту в течение 10-ти минут.
           </div>
-          <ProfileForm setDefaultCity={setDefaultCity} />
+          <ProfileForm setDefaultCity={setDefaultCity} initialCity={regionFromUrl}/>
         </div>
         {defaultCity && (
           <div className="sm:w-full sm:p-4 md:w-10/12 lg:w-10/12 container mx-auto text-center mt-8">
