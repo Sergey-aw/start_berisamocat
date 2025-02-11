@@ -38,10 +38,10 @@ const phoneRegex = new RegExp(
 
 
 
-export function ProfileForm() {
+export function ProfileForm({setDefaultCity}) {
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-    const [defaultCity, setDefaultCity] = useState('');
+    // const [defaultCity, setDefaultCity] = useState('');
 // Updating the form schema to include an email field
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -71,23 +71,20 @@ const formSchema = z.object({
 
     const getRegionFromUrl = () => {
       const params = new URLSearchParams(window.location.search);
-      const region = params.get('region');
-      const regionMap = {
-          bg: 'Богородицк',
-          bd: 'Буддёновск',
-          sh: 'Салехард'
-      };
-      return region && regionMap[region] ? regionMap[region] : '';
-  }
+      console.log(params.get('region'));
+      return params.get('region');
+      
 
-  useEffect(() => {
-    const cityFromUrl = getRegionFromUrl();
-    if (cityFromUrl) {
-      setDefaultCity(cityFromUrl);
-      form.setValue('city', cityFromUrl, { shouldValidate: true });
-      console.log('City from URL:', cityFromUrl);
-    }
-  }, [form]);
+    };
+
+    useEffect(() => {
+      const region = getRegionFromUrl();
+      if (region) {
+        form.setValue('city', region);
+        setDefaultCity(region);
+      }
+    }, [form, setDefaultCity]);
+  
       
 
       async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -202,16 +199,20 @@ const formSchema = z.object({
                   render={({ field }) => (
                       <FormItem>
                           <FormLabel>Регион</FormLabel>
-                          <Select onValueChange={field.onChange} value={field.value || defaultCity}>
+                          {/* <Select onValueChange={field.onChange} value={field.value || defaultCity}> */}
+                          <Select onValueChange={(value) => {
+          form.setValue('city', value);
+          setDefaultCity(value);
+        }} value={field.value || getRegionFromUrl()}>
                               <FormControl>
                                   <SelectTrigger>
                                       <SelectValue placeholder="Выберите регион из списка" />
                                   </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                  <SelectItem value="Богородицк">Богородицк</SelectItem>
-                                  <SelectItem value="Буддёновск">Буддёновск</SelectItem>
-                                  <SelectItem value="Салехард">Салехард</SelectItem>
+                                  <SelectItem value="bg">Богородицк</SelectItem>
+                                  <SelectItem value="db">Дубна</SelectItem>
+                                  <SelectItem value="sh">Салехард</SelectItem>
                               </SelectContent>
                           </Select>
                           <FormDescription>
