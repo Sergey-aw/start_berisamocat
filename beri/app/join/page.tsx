@@ -33,7 +33,7 @@ const cityData = {
     roi: 7,
     scooters: "46",
     model: "Ninebot Max G30",
-    cityimg: "/bd.jpg",
+    cityimg: "/db.jpg",
     toinvest: 1591000,
     profit: 150000,
     listItems: [
@@ -50,7 +50,7 @@ const cityData = {
     roi: 7,
     scooters: "46",
     model: "Ninebot Max G30",
-    cityimg: "/sh.jpg",
+    cityimg: "/db.jpg",
     toinvest: 1591000,
     profit: 150000,
     listItems: [
@@ -66,7 +66,7 @@ const cityData = {
 function JoinContent() {
   const searchParams = useSearchParams();
   const [defaultCity, setDefaultCity] = useState("bg");
-  const [cityimg, setCityimg] = useState('');
+  const [cityimg, setCityimg] = useState('/bg.jpg');
   const [toinvest, setToinvest] = useState(0);
   const [profit, setProfit] = useState(0);
   const [roi, setRoi] = useState(0);
@@ -75,16 +75,23 @@ function JoinContent() {
 
   const regionFromUrl = searchParams?.get("region");
 
-  useEffect(() => {
-    const selectedRegion = regionFromUrl && cityData[regionFromUrl] ? regionFromUrl : "bg";
-    setDefaultCity(selectedRegion);
-    setRoi(cityData[selectedRegion].roi);
-    setScooters(cityData[selectedRegion].scooters);
-    setCityimg(cityData[selectedRegion].cityimg);
-    setToinvest(cityData[selectedRegion].toinvest);
-    setProfit(cityData[selectedRegion].profit);
-    setModel(cityData[selectedRegion].model);
-  }, [searchParams, regionFromUrl]);
+// Set the initial city from URL if available.
+useEffect(() => {
+  if (regionFromUrl && cityData[regionFromUrl]) {
+    setDefaultCity(regionFromUrl);
+  }
+}, [regionFromUrl]);
+
+// Whenever defaultCity changes, update all dependent states.
+useEffect(() => {
+  setRoi(cityData[defaultCity].roi);
+  setScooters(cityData[defaultCity].scooters);
+  setCityimg(cityData[defaultCity].cityimg);
+  setToinvest(cityData[defaultCity].toinvest);
+  setProfit(cityData[defaultCity].profit);
+  setModel(cityData[defaultCity].model);
+}, [defaultCity]);
+
 
   const formatter = new Intl.NumberFormat('ru-RU', {
     style: 'decimal',
@@ -137,12 +144,13 @@ function JoinContent() {
             </div>
             <div className="lg:col-start-3 lg:row-start-1 lg:row-span-2 bg-slate-100 rounded-xl text-left p-4 relative min-h-64">
               <div>
-                {cityimg && (
+                {defaultCity && (
                   <Image
+                    key={defaultCity} 
                     className="object-cover rounded-xl"
                     fill={true}
                     src={cityimg}
-                    alt="Берисамокат"
+                    alt={`Берисамокат ${cityData[defaultCity].name}`}
                   />
                 )}
               </div>
