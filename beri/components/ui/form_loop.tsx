@@ -160,7 +160,6 @@ export function ProfileForm({ setDefaultCity, initialCity }) {
                     <SelectContent>
                       <SelectItem value="bg">Богородицк</SelectItem>
                       <SelectItem value="db">Дубна</SelectItem>
-                      <SelectItem value="sh">Салехард</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormDescription></FormDescription>
