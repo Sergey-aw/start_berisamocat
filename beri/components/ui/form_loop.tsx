@@ -73,7 +73,10 @@ export function ProfileForm({ setDefaultCity, initialCity }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          ...values,
+          formType: 'Форма присоединиться'
+        }),
       });
   
       if (!response.ok) {

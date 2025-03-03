@@ -70,8 +70,10 @@ const formSchema = z.object({
             headers: {
               'Content-Type': 'application/json',
             },
-            // Assuming your API expects a direct payload. Adjust according to your API's expected structure.
-            body: JSON.stringify(values),
+            body: JSON.stringify({
+              ...values,
+              formType: 'Форма франшизы'
+            }),
           });
       
           if (!response.ok) { // Check if the HTTP request was successful.
