@@ -46,6 +46,7 @@ export function ProfileForm({ setDefaultCity, initialCity }) {
     email: z.string().email({
       message: "Кажется, это не email.",
     }),
+
   });
 
   const form = useForm<z.infer<typeof formSchema>>({

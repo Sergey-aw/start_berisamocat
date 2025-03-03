@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { PostHogProvider } from "./providers";
 
  
  
@@ -34,8 +35,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        
+         <PostHogProvider>
         {children}
+        </PostHogProvider>
       </body>
       <GoogleAnalytics gaId="G-QDM4X94J8P" />
     </html>
